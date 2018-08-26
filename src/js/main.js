@@ -263,9 +263,29 @@ var createRestaurantHTML = (restaurant) => {
   more.setAttribute('aria-label', `View details for ${restaurant.name}`);
   more.addEventListener('keypress', ensureClick);
   more.href = DBHelper.urlForRestaurant(restaurant);
+
+  const fav = document.createElement('button');
+  fav.setAttribute('id', 'favMainOff');
+  fav.addEventListener('click', favToggle);
+
   li.append(more)
 
+  li.appendChild(fav);
+
   return li
+}
+
+/**
+ * function for fav button toggle
+ */
+var favToggle = (e) => {
+  e.preventDefault();
+  if(e.target.id === 'favMainOff') {
+    e.target.id = 'favMainOn'
+  } else {
+    e.target.id = 'favMainOff'
+  }
+
 }
 
 /**

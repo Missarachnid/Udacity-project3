@@ -331,6 +331,31 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
+/* ====================== Fav Button ========================= */
+
+#favMainOn {
+  background: url('../img/star_filled.png') center center no-repeat;
+  height: 36px;
+  width: 36px;
+  float: right;
+  margin-top: 30px;
+  border: none;
+}
+
+#favMainOff {
+  background: url('../img/star_empty.png') center center no-repeat;
+  height: 36px;
+  width: 36px;
+  float: right;
+  margin-top: 30px;
+  border: none;
+}
+
+#favMainOff:hover, #favMainOn:hover, #favMainOn:focus, #favMainOff:focus {
+  outline: none;
+}
+
 /* ====================== Media Queries ====================== */
 @media screen and (min-width: 769px) and (max-width: 1224px) {
   #restaurants-list {

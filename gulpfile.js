@@ -63,4 +63,4 @@ gulp.task('images', () =>
         .pipe(gulp.dest('./dist/img'))
 );
 
-gulp.task('default', ['main-scripts', 'restaurant-scripts', 'styles', 'sw']);
+gulp.task('default', ['main-scripts', 'restaurant-scripts', 'styles', 'sw', 'images']);

@@ -29,7 +29,9 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 .name{padding:0 0 12px 20px;font-size:1.3rem;color:white;margin:0}.date{padding:6px 20px 0 0;color:white;margin:0}
 .holder{display:flex;flex-direction:row;justify-content:space-between;width:100%;background:black;margin:0 auto 10px auto;padding-top:10px}
 .rating{background-color:#cc6d00;width:84px;color:black;font-weight:400;margin-left:10px;padding:4px 0 4px 10px;border-radius:4px}
-.comments{padding:15px}#restaurant-hours td{color:#666}@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
+.comments{padding:15px}#restaurant-hours td{color:#666}#favMainOn{background:url('../img/star_filled.png') center center no-repeat;height:36px;width:36px;float:right;margin-top:30px;border:0}
+#favMainOff{background:url('../img/star_empty.png') center center no-repeat;height:36px;width:36px;float:right;margin-top:30px;border:0}
+#favMainOff:hover,#favMainOn:hover,#favMainOn:focus,#favMainOff:focus{outline:0}@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
 #restuarants-list li{width:50%}}@media screen and (max-width:768px){#restaurant-container,#reviews-container{width:100%}
 .inside #map-container{position:relative;display:block;height:400px;width:100%;margin:auto}
 #breadcrumb{width:100%;position:absolute;top:80px}.inside #footer{width:100%}#maincontent{min-width:100%}

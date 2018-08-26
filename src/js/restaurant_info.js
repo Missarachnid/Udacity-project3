@@ -169,7 +169,6 @@ var fillReviewsHTML = (error, reviews) => {
  * Create review HTML and add it to the webpage.
  */
 var createReviewHTML = (review) => {
-  console.log(review);
   const li = document.createElement('li');
   //Added some elements to create review div like the example
   const holder = document.createElement('div');
