@@ -30,6 +30,14 @@ class DBHelper {
      })
    }
 
+   /**
+   * Reviews URL
+   */
+  static get REVIEWS_URL() {
+    const port = 1337 // Change this to your server port
+    return `http://localhost:${port}/reviews`;
+  }
+
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
@@ -227,6 +235,23 @@ class DBHelper {
     return marker;
   } 
 
+  /*-----------------------Fetching Reviews-------------------------- */
+
+static fetchRestaurantReviewsById(id, callback) {
+  const reviewURL = DBHelper.REVIEWS_URL + "/?restaurant_id=" + id;
+  fetch(reviewURL)
+  .then(res => {
+    res.json()
+    .then((data) => {
+      callback(null, data)
+    })
+  })
+  .catch((error) => callback(error, null))
+}
+
+
+
+/*Special thanks to Doug Brown aka TheInfiniteMonkey for his Udacity walkthrough of this project*/
 }
 
 module.exports = DBHelper;

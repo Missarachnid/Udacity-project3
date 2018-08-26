@@ -118,7 +118,7 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+  DBHelper.fetchRestaurantReviewsById(restaurant.id, fillReviewsHTML);
 }
 
 /**
@@ -144,7 +144,9 @@ var fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours)
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-var fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+var fillReviewsHTML = (error, reviews) => {
+  self.restaurant.reviews = reviews;
+
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
@@ -167,6 +169,7 @@ var fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  * Create review HTML and add it to the webpage.
  */
 var createReviewHTML = (review) => {
+  console.log(review);
   const li = document.createElement('li');
   //Added some elements to create review div like the example
   const holder = document.createElement('div');
@@ -176,9 +179,15 @@ var createReviewHTML = (review) => {
   name.innerHTML = review.name;
   holder.appendChild(name);
 
+  //updated Date to get info from createdAt
   const date = document.createElement('p');
   date.setAttribute('class', 'date');
-  date.innerHTML = review.date;
+  const createdAt = review.createdAt;
+  const displayDate = new Date(createdAt);
+  let day = displayDate.getDate();
+  let month = displayDate.getMonth();
+  let year = displayDate.getFullYear();
+  date.innerHTML = month + "/" + day + "/" + year
   holder.appendChild(date);
   li.appendChild(holder);
 
