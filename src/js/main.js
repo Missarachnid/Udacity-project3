@@ -205,6 +205,8 @@ var fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 var createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+
+  
   /**
    * Picture element for responsive images.
    */
@@ -264,9 +266,21 @@ var createRestaurantHTML = (restaurant) => {
   more.addEventListener('keypress', ensureClick);
   more.href = DBHelper.urlForRestaurant(restaurant);
 
+  /**
+   * Favorite icon
+   */
+  //add aria label later or way to mark for screen readers
+
+
+  console.log("Restaurant Favorite Status: ", restaurant["is_favorite"]);
+  const isFav = (restaurant["is_favorite"] && restaurant["is_favorite"].toString() === "true") ? true : false;
+
   const fav = document.createElement('button');
-  fav.setAttribute('id', 'favMainOff');
-  fav.addEventListener('click', favToggle);
+  fav.className = "favMain";
+  fav.id = "fav-button-" + restaurant.id;
+  fav.style.background = isFav ? `url('../img/star_filled.svg') no-repeat` : `url('../img/star_empty.svg') no-repeat`;
+  
+  fav.onclick = e => favToggle(restaurant.id, !isFav);
 
   li.append(more)
 
@@ -278,15 +292,18 @@ var createRestaurantHTML = (restaurant) => {
 /**
  * function for fav button toggle
  */
-var favToggle = (e) => {
-  e.preventDefault();
-  if(e.target.id === 'favMainOff') {
-    e.target.id = 'favMainOn'
-  } else {
-    e.target.id = 'favMainOff'
-  }
+const favToggle = (id, status) => {
+  const fav = document.getElementById("fav-button-" + id);
+  const restaurant = self.restaurants.filter(i => i.id === id)[0];
+  if(!restaurant)
+    return;
+  restaurant["is_favorite"] = status;
+  //turns click back on after processing has happened to prevent overclicking
+  fav.onclick = e => favToggle(restaurant.id, !restaurant["is_favorite"]);
 
-}
+  DBHelper.favToggle(id, status);
+
+};
 
 /**
  * Add markers for current restaurants to the map.

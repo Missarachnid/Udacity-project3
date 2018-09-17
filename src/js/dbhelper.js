@@ -3,24 +3,29 @@
  */
 
 import idb from 'idb';
-let dbPromise;
-class DBHelper {
 
-  /**
-   * open db Database
-   */
-  //if browser doesn't support sw, don't open db
-  static openDB() {
-    return idb.open('restaurants', 1, (upgradeDb) => {
-      upgradeDb.createObjectStore('restaurants', {keyPath: 'id'})
-    });
-  }
+/**
+ * Using Switch up from Jake Archibald's example of IDB with Promises to create all stores with fall through
+ */
+const dbPromise = idb.open("restaurants", 3, upgradeDB => {
+    switch(upgradeDB.oldVersion) {
+      case 0:
+        upgradeDB.createObjectStore("restaurants", {keyPath: "id"});
+      case 1: 
+        upgradeDB.createObjectStore("pending", {keyPath: "id", autoIncrement: true});
+      case 2:
+        {
+          const reviewsStore = upgradeDB.createObjectStore("reviews", {keyPath: "id"});
+          reviewsStore.createIndex("restaurant_id", "restaurant_id");
+        }
+    }
+  })
+class DBHelper {
 
   /**
    * Get Data From idb 
    */
    static getData(){
-     dbPromise = DBHelper.openDB();
      return dbPromise
      .then((db) => {
        if(!db) return; //initial load
@@ -96,8 +101,6 @@ class DBHelper {
     });
 }
     
-
-  
   /**
    * Fetch a restaurant by its ID.
    */
@@ -250,8 +253,211 @@ static fetchRestaurantReviewsById(id, callback) {
 }
 
 
+/**
+ * Handling fav clicks and adding reviews when on and offline
+ */
 
-/*Special thanks to Doug Brown aka TheInfiniteMonkey for his Udacity walkthrough of this project*/
+
+static favToggle(id, status) {
+  const fav = document.getElementById("fav-button-" + id);
+
+  //turns off the ability to click a fav until after processing is over to prevent over clicking
+  fav.onClick = null;
+
+  DBHelper.favUpdate(id, status, (error, res) => {
+    
+    if(error) {
+      console.log("There was an error processing favoriting");
+      return;
+    }
+
+    console.log("favToggle res is: ", res);
+    const fav2 = document.getElementById("fav-button-" + res.id)
+    fav2.style.background = res.value ? "url('../img/star_filled.svg') center center no-repeat" : "url('../img/star_empty.svg') center center no-repeat"
+  });
+}
+
+
+
+static favUpdate(id, status, callback) {
+  //url to update favorite status
+  const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${status}`;
+  const method = "PUT";
+
+  DBHelper.updateCachedData(id, {"is_favorite": status});
+
+  DBHelper.addToQueue(url, method);
+
+  callback(null, {id, value: status});
+}
+
+
+static updateCachedData(id, updateData) {
+    const dbPromise = idb.open("restaurants");
+ 
+    dbPromise.then(db => {
+      const tx = db.transaction("restaurants", "readwrite");
+      const value = tx
+        .objectStore("restaurants")
+        //getting the last key to check if there are values
+        .get("-1")
+        .then(value => {
+          if (!value) {
+            console.log("There was no cached data");
+            return;
+          }
+          const data = value.data;
+          const restaurantArr = data.filter(i => i.id === id);
+          const rest = restaurantArr[0];
+          // Find data by id and update that id with updated data
+          if (!rest)
+            return;
+
+          const keys = Object.keys(updateData);
+          keys.forEach(j => {
+            rest[j] = updateData[j];
+          })
+
+          // Put the data back in IDB storage
+          dbPromise.then(db => {
+            const tx = db.transaction("restaurants", "readwrite");
+            tx
+              .objectStore("restaurants")
+              .put({id: "-1", data: data});
+            return tx.complete;
+          })
+        })
+    })
+
+    // Update restaurant data by id
+    dbPromise.then(db => {
+      const tx = db.transaction("restaurants", "readwrite");
+      const value = tx
+        .objectStore("restaurants")
+        .get(id + "")
+        .then(value => {
+          if (!value) {
+            console.log("There is no cached data");
+            return;
+          }
+          const restaurantData = value.data;
+          console.log("Restaurant Data: ", restaurantData);
+
+          if (!restaurantData)
+            return;
+
+          const keys = Object.keys(updateData);
+          keys.forEach(k => {
+            restaurantData[k] = updateData[k];
+          })
+
+          // Change the restaurant data
+          dbPromise.then(db => {
+            const tx = db.transaction("restaurants", "readwrite");
+            tx
+              .objectStore("restaurants")
+              .put({
+                id: id + "",
+                data: restaurantData
+              });
+            return tx.complete;
+          })
+        })
+    })
+  }
+  
+  static addToQueue(url, method, body) {
+    const dbPromise = idb.open("restaurants");
+    dbPromise.then(db => {
+      const tx = db.transaction("pending", "readwrite");
+      tx
+      .objectStore("pending")
+      .put({ data: {url, method, body}})
+    })
+    .catch(err => {})
+    .then(DBHelper.nextItem());
+  }
+
+  static nextItem() {
+    DBHelper.tryCommitPending(DBHelper.nextItem);
+  }
+
+  static tryCommitPending(callback) {
+    let url;
+    let method;
+    let body;
+   
+    dbPromise.then(db => {
+      if (!db.objectStoreNames.length) {
+        console.log("This database is not available (addToQueue)");
+        db.close();
+        return;
+      }
+
+      const tx = db.transaction("pending", "readwrite");
+      tx
+        .objectStore("pending")
+        .openCursor()
+        .then(cursor => {
+          if (!cursor) {
+            return;
+          }
+          
+          const value = cursor.value;
+          url = cursor.value.data.url;
+          method = cursor.value.data.method;
+          body = cursor.value.data.body;
+
+          // Make sure reviews are not missing the body, and none are missing url, if so they are deleted
+
+          if ((!url || !method) || (method === "POST" && !body)) {
+            cursor
+              .delete()
+              .then(callback());
+            return;
+          };
+
+          const props = {
+            body: JSON.stringify(body),
+            method: method
+          }
+
+          console.log("To be updated in db (tryCommitPending) :", props);
+          fetch(url, props)
+            .then(res => {
+
+            // Check to see if you are offline
+            if (!res.ok && !res.redirected) {
+              return;
+            }
+
+          })
+            .then(() => {
+              // After this was updated in the database it can be removed from the pending queue
+              const entry = db.transaction("pending", "readwrite");
+              entry
+                .objectStore("pending")
+                .openCursor()
+                .then(cursor => {
+                  cursor
+                    .delete()
+                    .then(() => {
+                      callback();
+                    })
+                })
+              console.log("This entry was removed from the queue because it was sent to the server");
+            })
+        })
+        .catch(err => {
+          console.log("Error reading pending entry", err);
+          return;
+        })
+    })
+  }
+
+
+/*Special thanks to Doug Brown aka TheInfiniteMonkey for his Udacity walkthrough of this project, 
+To Jake Archibald for his idb with promises page on github*/
 }
 
 module.exports = DBHelper;

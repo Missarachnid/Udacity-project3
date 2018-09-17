@@ -245,6 +245,7 @@ nav h1 a {
   margin: 15px 0 30px;
   text-transform: uppercase;
   line-height: 1.1;
+  display: inline;
 }
 #restaurant-img {
 	width: 100%;
@@ -333,26 +334,31 @@ nav h1 a {
 }
 
 /* ====================== Fav Button ========================= */
-
-#favMainOn {
-  background: url('../img/star_filled.png') center center no-repeat;
-  height: 36px;
-  width: 36px;
-  float: right;
-  margin-top: 30px;
-  border: none;
+#favDiv {
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
-#favMainOff {
-  background: url('../img/star_empty.png') center center no-repeat;
+
+.favMain {
   height: 36px;
   width: 36px;
+  padding: 2px;
   float: right;
-  margin-top: 30px;
+  margin-top: 20px;
   border: none;
 }
+#favRest {
+  background: url('../img/star_filled.svg') center center no-repeat;
+  height: 30px;
+  width: 30px;
+  border: none;
+  margin: auto;
+  margin-left: 40px;
+}
 
-#favMainOff:hover, #favMainOn:hover, #favMainOn:focus, #favMainOff:focus {
+#favMainOff:hover, #favMainOn:hover, #favMainOn:focus, #favMainOff:focus,
+#favRestOff:hover, #favRestOn:hover, #favRestOn:focus, #favRestOff:focus {
   outline: none;
 }
 

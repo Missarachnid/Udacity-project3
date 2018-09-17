@@ -121,6 +121,7 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
   DBHelper.fetchRestaurantReviewsById(restaurant.id, fillReviewsHTML);
 }
 
+
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */

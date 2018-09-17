@@ -21,7 +21,7 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 #restaurants-list li a:hover,#restaurants-list li a:focus{box-shadow:0 0 2px 4px rgba(0,0,0,0.4);border-bottom:0;color:black;background-color:#ffac4d}
 .inside header{position:fixed;top:0;width:100%;z-index:1000}.inside #map-container{background:blue none repeat scroll 0 0;height:87%;position:fixed;right:0;top:80px;width:50%}
 .inside #map{background-color:#ccc;height:100%;width:100%}.inside #footer{bottom:0;position:absolute;width:50%}
-#restaurant-name{color:#cc6d00;font-family:Arial,sans-serif;font-size:20pt;font-weight:700;letter-spacing:0;margin:15px 0 30px;text-transform:uppercase;line-height:1.1}
+#restaurant-name{color:#cc6d00;font-family:Arial,sans-serif;font-size:20pt;font-weight:700;letter-spacing:0;margin:15px 0 30px;text-transform:uppercase;line-height:1.1;display:inline}
 #restaurant-img{width:100%}#restaurant-address{font-size:12pt;margin:10px 0}#restaurant-cuisine{background-color:#333;color:#ddd;font-size:12pt;font-weight:300;letter-spacing:10px;margin:0 0 20px;padding:2px 0;text-align:center;text-transform:uppercase;width:100%}
 #restaurant-container,#reviews-container{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px;width:50%}
 #reviews-container{padding:30px 40px 80px}#reviews-container h3{color:#cc6d00;font-size:24pt;font-weight:700;letter-spacing:-1px;padding-bottom:1pt}
@@ -29,9 +29,11 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 .name{padding:0 0 12px 20px;font-size:1.3rem;color:white;margin:0}.date{padding:6px 20px 0 0;color:white;margin:0}
 .holder{display:flex;flex-direction:row;justify-content:space-between;width:100%;background:black;margin:0 auto 10px auto;padding-top:10px}
 .rating{background-color:#cc6d00;width:84px;color:black;font-weight:400;margin-left:10px;padding:4px 0 4px 10px;border-radius:4px}
-.comments{padding:15px}#restaurant-hours td{color:#666}#favMainOn{background:url('../img/star_filled.png') center center no-repeat;height:36px;width:36px;float:right;margin-top:30px;border:0}
-#favMainOff{background:url('../img/star_empty.png') center center no-repeat;height:36px;width:36px;float:right;margin-top:30px;border:0}
-#favMainOff:hover,#favMainOn:hover,#favMainOn:focus,#favMainOff:focus{outline:0}@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
+.comments{padding:15px}#restaurant-hours td{color:#666}#favDiv{margin-bottom:30px;margin-top:10px}
+.favMain{height:36px;width:36px;padding:2px;float:right;margin-top:20px;border:0}
+#favRest{background:url('../img/star_filled.svg') center center no-repeat;height:30px;width:30px;border:0;margin:auto;margin-left:40px}
+#favMainOff:hover,#favMainOn:hover,#favMainOn:focus,#favMainOff:focus,#favRestOff:hover,#favRestOn:hover,#favRestOn:focus,#favRestOff:focus{outline:0}
+@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
 #restuarants-list li{width:50%}}@media screen and (max-width:768px){#restaurant-container,#reviews-container{width:100%}
 .inside #map-container{position:relative;display:block;height:400px;width:100%;margin:auto}
 #breadcrumb{width:100%;position:absolute;top:80px}.inside #footer{width:100%}#maincontent{min-width:100%}
