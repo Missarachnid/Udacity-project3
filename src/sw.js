@@ -42,7 +42,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  console.log("sw.js event.request", event.request);
+  //console.log("sw.js event.request", event.request);
     event.respondWith(
         caches.open(staticCacheName)
         .then((cache)  => {

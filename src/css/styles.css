@@ -40,7 +40,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   min-height: 100%;
   margin: auto;
 }
-#footer {
+
+#footer, #footer-reviews {
   background-color: #444;
   color: #d9d9d9;
   font-size: 8pt;
@@ -68,30 +69,31 @@ nav h1 a {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
-#breadcrumb {
+#breadcrumb, #breadcrumb-reviews {
   padding: 10px 40px 16px;
   list-style: none;
   background-color: #eee;
   margin: 0;
   width: 50%;
 }
+
 /* Display list items side by side */
-#breadcrumb li {
+#breadcrumb li, #breadcrumb-reviews li {
     display: inline;
 }
 /* Add a slash symbol (/) before/behind each list item */
-#breadcrumb li+li:before {
+#breadcrumb li+li:before, #breadcrumb-reviews li+li:before {
     padding: 8px;
     color: black;
     content: "/\00a0";
 }
 /* Add a color to all links inside the list */
-#breadcrumb li a {
+#breadcrumb li a, #breadcrumbs-reviews li a {
     color: #025fb1;
     text-decoration: none;
 }
 /* Add a color on mouse-over */
-#breadcrumb li a:hover {
+#breadcrumb li a:hover, #breadcrumb li a:hover {
     color: #01447e;
     text-decoration: underline;
 }
@@ -272,6 +274,11 @@ nav h1 a {
   padding: 140px 40px 30px;
   width: 50%;
 }
+#restaurant-container-reviews {
+  border-bottom: 1px solid #d9d9d9;
+  border-top: 1px solid #fff;
+  padding: 140px 40px 30px;
+}
 #reviews-container {
   padding: 30px 40px 80px;
 }
@@ -333,6 +340,36 @@ nav h1 a {
   color: #666;
 }
 
+/* ====================== Reviews Page Unique ========================= */
+
+#enter-review {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  height: auto;
+  text-align: center;
+}
+
+.review-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.review-label {
+  display: block;
+}
+
+/* ====================== Review Save Button ========================= */
+
+#review-save {
+  font-size: .75rem;
+  width: 100px;
+  padding: 4px;
+  margin: auto;
+}
+
 /* ====================== Fav Button ========================= */
 #favDiv {
   display: flex;
@@ -361,6 +398,13 @@ nav h1 a {
 .favRest:hover, .favRest:hover {
   outline: none;
 }
+
+/* ====================== Review Link ========================= */
+
+.reviewLink {
+  margin: 0 0 40px 0;
+}
+
 
 /* ====================== Media Queries ====================== */
 @media screen and (min-width: 769px) and (max-width: 1224px) {

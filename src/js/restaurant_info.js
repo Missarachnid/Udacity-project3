@@ -176,10 +176,21 @@ var fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours)
 var fillReviewsHTML = (error, reviews) => {
   self.restaurant.reviews = reviews;
 
+  if(error) {
+    console.log("restaurantInfo erro getting reviews : ", error);
+  }
+
+
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
+
+  const reviewLink = document.createElement("a");
+  reviewLink.href = `/reviews.html?id=${self.restaurant.id}`;
+  reviewLink.innerHTML = "Add Your Review";
+  reviewLink.className = "reviewLink";
+  container.appendChild(reviewLink)
 
   if (!reviews) {
     const noReviews = document.createElement('p');

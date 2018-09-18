@@ -2,12 +2,12 @@
 body{background-color:#fdfdfd;margin:0;position:relative}ul,li{color:#333}a{color:orange;text-decoration:none}
 a:hover,a:focus{color:#3397db;text-decoration:none}a img{border:none 0 #fff}h1,h2,h3,h4,h5,h6{font-family:Arial,Helvetica,sans-serif;margin:0 0 20px}
 article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
-#maincontent{background-color:#f3f3f3;min-height:100%;margin:auto}#footer{background-color:#444;color:#d9d9d9;font-size:8pt;letter-spacing:1px;padding:25px;text-align:center;text-transform:uppercase}
+#maincontent{background-color:#f3f3f3;min-height:100%;margin:auto}#footer,#footer-reviews{background-color:#444;color:#d9d9d9;font-size:8pt;letter-spacing:1px;padding:25px;text-align:center;text-transform:uppercase}
 nav{width:100%;height:80px;background-color:#252831;text-align:center;display:flex;justify-content:center}
 nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-spacing:10px;text-transform:uppercase}
-#breadcrumb{padding:10px 40px 16px;list-style:none;background-color:#eee;margin:0;width:50%}
-#breadcrumb li{display:inline}#breadcrumb li+li:before{padding:8px;color:black;content:"/\00a0"}
-#breadcrumb li a{color:#025fb1;text-decoration:none}#breadcrumb li a:hover{color:#01447e;text-decoration:underline}
+#breadcrumb,#breadcrumb-reviews{padding:10px 40px 16px;list-style:none;background-color:#eee;margin:0;width:50%}
+#breadcrumb li,#breadcrumb-reviews li{display:inline}#breadcrumb li+li:before,#breadcrumb-reviews li+li:before{padding:8px;color:black;content:"/\00a0"}
+#breadcrumb li a,#breadcrumbs-reviews li a{color:#025fb1;text-decoration:none}#breadcrumb li a:hover,#breadcrumb li a:hover{color:#01447e;text-decoration:underline}
 .skip-link{position:absolute;top:-40px;left:0;background:#f18200;color:white;padding:8px;z-index:00}
 .skip-link:focus{top:0}#map{height:400px;width:100%;background-color:#ccc}.filter-options{width:100%;height:auto;background-color:#1f74ad;padding-top:10px;text-align:center}
 .filter-options h2{color:white;font-size:1.5rem;font-weight:normal;line-height:1;margin:0 20px;text-align:center}
@@ -24,15 +24,18 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 #restaurant-name{color:#cc6d00;font-family:Arial,sans-serif;font-size:20pt;font-weight:700;letter-spacing:0;margin:15px 0 30px;text-transform:uppercase;line-height:1.1;display:inline}
 #restaurant-img{width:100%}#restaurant-address{font-size:12pt;margin:10px 0}#restaurant-cuisine{background-color:#333;color:#ddd;font-size:12pt;font-weight:300;letter-spacing:10px;margin:0 0 20px;padding:2px 0;text-align:center;text-transform:uppercase;width:100%}
 #restaurant-container,#reviews-container{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px;width:50%}
+#restaurant-container-reviews{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px}
 #reviews-container{padding:30px 40px 80px}#reviews-container h3{color:#cc6d00;font-size:24pt;font-weight:700;letter-spacing:-1px;padding-bottom:1pt}
 #reviews-list{margin:0;padding:0}#reviews-list li{background-color:#fff;border:2px solid #f3f3f3;display:block;list-style-type:none;margin:10px auto;border-radius:15px 0 15px 0;overflow:hidden;position:relative;width:100%}
 .name{padding:0 0 12px 20px;font-size:1.3rem;color:white;margin:0}.date{padding:6px 20px 0 0;color:white;margin:0}
 .holder{display:flex;flex-direction:row;justify-content:space-between;width:100%;background:black;margin:0 auto 10px auto;padding-top:10px}
 .rating{background-color:#cc6d00;width:84px;color:black;font-weight:400;margin-left:10px;padding:4px 0 4px 10px;border-radius:4px}
-.comments{padding:15px}#restaurant-hours td{color:#666}#favDiv{display:flex;justify-content:center;margin-bottom:20px;margin-top:10px}
+.comments{padding:15px}#restaurant-hours td{color:#666}#enter-review{display:flex;justify-content:center;flex-flow:column wrap;height:auto;text-align:center}
+.review-div{display:flex;justify-content:center;width:100%;margin:10px auto}.review-label{display:block}
+#review-save{font-size:.75rem;width:100px;padding:4px;margin:auto}#favDiv{display:flex;justify-content:center;margin-bottom:20px;margin-top:10px}
 .favMain{height:30px;width:30px;padding:2px;float:right;margin-top:20px;border:0}
 .favRest{height:36px;width:36px;border:0;padding:0}.favMain:hover,.favMain:focus,.favRest:hover,.favRest:hover{outline:0}
-@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
+.reviewLink{margin:0 0 40px 0}@media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
 #restuarants-list li{width:50%}}@media screen and (max-width:768px){#restaurant-container,#reviews-container{width:100%}
 .inside #map-container{position:relative;display:block;height:400px;width:100%;margin:auto}
 #breadcrumb{width:100%;position:absolute;top:80px}.inside #footer{width:100%}#maincontent{min-width:100%}
