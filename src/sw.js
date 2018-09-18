@@ -14,6 +14,7 @@ const toCache = [
   './img/favicon.png'
 ];
 
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(staticCacheName)
@@ -25,6 +26,8 @@ self.addEventListener('install', (event) => {
 });
 
 
+
+
 self.addEventListener('fetch', (event) => {
   var url = new URL(event.request.url);
 
@@ -33,6 +36,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  //if the request method is PUT or POST it is ignored
+  if(event.request.method != "GET"){
+    //console.log("fetch request is not GET ", event.request.method);
+    return;
+  }
+
+  console.log("sw.js event.request", event.request);
     event.respondWith(
         caches.open(staticCacheName)
         .then((cache)  => {

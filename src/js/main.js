@@ -272,7 +272,7 @@ var createRestaurantHTML = (restaurant) => {
   //add aria label later or way to mark for screen readers
 
 
-  console.log("Restaurant Favorite Status: ", restaurant["is_favorite"]);
+  //console.log("Restaurant Favorite Status: ", restaurant["is_favorite"]);
   const isFav = (restaurant["is_favorite"] && restaurant["is_favorite"].toString() === "true") ? true : false;
 
   const fav = document.createElement('button');
@@ -295,6 +295,7 @@ var createRestaurantHTML = (restaurant) => {
 const favToggle = (id, status) => {
   const fav = document.getElementById("fav-button-" + id);
   const restaurant = self.restaurants.filter(i => i.id === id)[0];
+  console.log("in fav toggle restaurant", restaurant);
   if(!restaurant)
     return;
   restaurant["is_favorite"] = status;

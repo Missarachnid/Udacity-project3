@@ -337,6 +337,7 @@ nav h1 a {
 #favDiv {
   margin-bottom: 30px;
   margin-top: 10px;
+  display: block;
 }
 
 
@@ -348,17 +349,16 @@ nav h1 a {
   margin-top: 20px;
   border: none;
 }
-#favRest {
-  background: url('../img/star_filled.svg') center center no-repeat;
+.favRest {
   height: 30px;
   width: 30px;
   border: none;
   margin: auto;
-  margin-left: 40px;
+  float: right;
 }
 
-#favMainOff:hover, #favMainOn:hover, #favMainOn:focus, #favMainOff:focus,
-#favRestOff:hover, #favRestOn:hover, #favRestOn:focus, #favRestOff:focus {
+.favMain:hover, .favMain:focus,
+.favRest:hover, .favRest:hover {
   outline: none;
 }
 

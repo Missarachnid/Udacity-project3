@@ -259,10 +259,10 @@ static fetchRestaurantReviewsById(id, callback) {
 
 
 static favToggle(id, status) {
-  const fav = document.getElementById("fav-button-" + id);
+  const favorite = document.getElementById("fav-button-" + id);
 
   //turns off the ability to click a fav until after processing is over to prevent over clicking
-  fav.onClick = null;
+  favorite.onClick = null;
 
   DBHelper.favUpdate(id, status, (error, res) => {
     
@@ -272,8 +272,8 @@ static favToggle(id, status) {
     }
 
     console.log("favToggle res is: ", res);
-    const fav2 = document.getElementById("fav-button-" + res.id)
-    fav2.style.background = res.value ? "url('../img/star_filled.svg') center center no-repeat" : "url('../img/star_empty.svg') center center no-repeat"
+    const fav = document.getElementById("fav-button-" + res.id)
+    fav.style.background = res.value ? `url('../img/star_filled.svg') no-repeat` : `url('../img/star_empty.svg') no-repeat`;
   });
 }
 
@@ -282,6 +282,7 @@ static favToggle(id, status) {
 static favUpdate(id, status, callback) {
   //url to update favorite status
   const url = `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${status}`;
+  console.log("dbHelper favUpdate url ", url);
   const method = "PUT";
 
   DBHelper.updateCachedData(id, {"is_favorite": status});
@@ -379,15 +380,17 @@ static updateCachedData(id, updateData) {
   }
 
   static nextItem() {
+    //recursive to make its way through the list
     DBHelper.tryCommitPending(DBHelper.nextItem);
   }
 
   static tryCommitPending(callback) {
-    let url;
-    let method;
-    let body;
-   
+    let url, method, body;
+   const dbPromise = idb.open("restaurants");
     dbPromise.then(db => {
+      console.log("tryCommitPending !db.objectStoreNames.length : ", !db.objectStoreNames.length);
+      console.log("tryCommitPending !db.objectStoreNames.length2 : ", db.objectStoreNames);
+
       if (!db.objectStoreNames.length) {
         console.log("This database is not available (addToQueue)");
         db.close();
@@ -395,18 +398,23 @@ static updateCachedData(id, updateData) {
       }
 
       const tx = db.transaction("pending", "readwrite");
-      tx
-        .objectStore("pending")
-        .openCursor()
-        .then(cursor => {
-          if (!cursor) {
-            return;
-          }
-          
-          const value = cursor.value;
-          url = cursor.value.data.url;
-          method = cursor.value.data.method;
-          body = cursor.value.data.body;
+        tx
+          .objectStore("pending")
+          .openCursor()
+          .then(cursor => {
+            if (!cursor) {
+              console.log("tryCommitPending there is no cursor so it should return");
+              return;
+            }
+
+        const value = cursor.value;
+       // url = cursor.value.data.url;
+       url = value.data.url;
+       // method = cursor.value.data.method;
+       method = value.data.method;
+       // body = cursor.value.data.body;
+       body = value.data.body;
+       console.log("tryCommitPending after db Transaction url, method, body : ", url, method, body);
 
           // Make sure reviews are not missing the body, and none are missing url, if so they are deleted
 
@@ -425,9 +433,10 @@ static updateCachedData(id, updateData) {
           console.log("To be updated in db (tryCommitPending) :", props);
           fetch(url, props)
             .then(res => {
-
+              console.log("tryCommitPending res : ", res);
             // Check to see if you are offline
             if (!res.ok && !res.redirected) {
+              console.log("tryCommitPending not online");
               return;
             }
 

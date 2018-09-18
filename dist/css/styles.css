@@ -29,10 +29,9 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 .name{padding:0 0 12px 20px;font-size:1.3rem;color:white;margin:0}.date{padding:6px 20px 0 0;color:white;margin:0}
 .holder{display:flex;flex-direction:row;justify-content:space-between;width:100%;background:black;margin:0 auto 10px auto;padding-top:10px}
 .rating{background-color:#cc6d00;width:84px;color:black;font-weight:400;margin-left:10px;padding:4px 0 4px 10px;border-radius:4px}
-.comments{padding:15px}#restaurant-hours td{color:#666}#favDiv{margin-bottom:30px;margin-top:10px}
+.comments{padding:15px}#restaurant-hours td{color:#666}#favDiv{margin-bottom:30px;margin-top:10px;display:block}
 .favMain{height:36px;width:36px;padding:2px;float:right;margin-top:20px;border:0}
-#favRest{background:url('../img/star_filled.svg') center center no-repeat;height:30px;width:30px;border:0;margin:auto;margin-left:40px}
-#favMainOff:hover,#favMainOn:hover,#favMainOn:focus,#favMainOff:focus,#favRestOff:hover,#favRestOn:hover,#favRestOn:focus,#favRestOff:focus{outline:0}
+.favRest{height:30px;width:30px;border:0;margin:auto;float:right}.favMain:hover,.favMain:focus,.favRest:hover,.favRest:hover{outline:0}
 @media screen and (min-width:769px) and (max-width:1224px){#restaurants-list{width:100%}
 #restuarants-list li{width:50%}}@media screen and (max-width:768px){#restaurant-container,#reviews-container{width:100%}
 .inside #map-container{position:relative;display:block;height:400px;width:100%;margin:auto}

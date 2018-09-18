@@ -110,6 +110,17 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.src = origin;
   
 
+  //favorite icon
+  console.log("Restaurant Favorite Status: ", restaurant["is_favorite"]);
+  const isFav = (restaurant["is_favorite"] && restaurant["is_favorite"].toString() === "true") ? true : false;
+  const fav = document.getElementsByClassName("favRest")[0];
+  console.log("fav: ", fav);
+  fav.id = "fav-button-" + restaurant.id;
+  console.log("fav id: ", fav.id);
+  fav.style.background = isFav ? `url('../img/star_filled.svg') no-repeat` : `url('../img/star_empty.svg') no-repeat`;
+  
+  fav.onclick = e => favToggle(restaurant.id, !isFav);
+
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
@@ -120,6 +131,23 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
   DBHelper.fetchRestaurantReviewsById(restaurant.id, fillReviewsHTML);
 }
+
+
+/**
+ * function for fav button toggle
+ */
+const favToggle = (id, status) => {
+  const fav = document.getElementById("fav-button-" + id);
+  
+  self.restaurant["is_favorite"] = status;
+  console.log("favToggle status: ", status);
+  console.log("favToggle id: ", id);
+  //turns click back on after processing has happened to prevent overclicking
+  fav.onclick = e => favToggle(self.restaurant.id, !self.restaurant["is_favorite"]);
+
+  DBHelper.favToggle(id, status);
+
+};
 
 
 /**
