@@ -335,26 +335,26 @@ nav h1 a {
 
 /* ====================== Fav Button ========================= */
 #favDiv {
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
   margin-top: 10px;
-  display: block;
 }
 
 
 .favMain {
-  height: 36px;
-  width: 36px;
+  height: 30px;
+  width: 30px;
   padding: 2px;
   float: right;
   margin-top: 20px;
   border: none;
 }
 .favRest {
-  height: 30px;
-  width: 30px;
+  height: 36px;
+  width: 36px;
   border: none;
-  margin: auto;
-  float: right;
+  padding: 0;
 }
 
 .favMain:hover, .favMain:focus,
