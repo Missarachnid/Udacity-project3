@@ -48,6 +48,19 @@ gulp.task('sw', function() {
   .pipe(gulp.dest('./dist'));
 });
 
+
+gulp.task('reviews', function() {
+  browserify(['./src/js/dbhelper.js', './src/js/review.js'])
+  .transform(babelify.configure({
+    presets: ['babel-preset-es2015']
+  }))
+  .bundle()
+  .pipe(source('bundle_review.js'))
+  .pipe(buff())
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist/js'))
+});
+
 gulp.task('styles', function(){
   gulp.src('./src/css/styles.css')
   .pipe(ugly({
@@ -63,4 +76,4 @@ gulp.task('images', () =>
         .pipe(gulp.dest('./dist/img'))
 );
 
-gulp.task('default', ['main-scripts', 'restaurant-scripts', 'styles', 'sw', 'images']);
+gulp.task('default', ['main-scripts', 'restaurant-scripts', 'styles', 'sw', 'reviews']);

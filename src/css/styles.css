@@ -40,6 +40,11 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   min-height: 100%;
   margin: auto;
 }
+#maincontent-reviews {
+  background-color: #f3f3f3;
+  min-height: 100%;
+  width: 100%;
+}
 
 #footer, #footer-reviews {
   background-color: #444;
@@ -69,12 +74,20 @@ nav h1 a {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
-#breadcrumb, #breadcrumb-reviews {
+#breadcrumb {
   padding: 10px 40px 16px;
   list-style: none;
   background-color: #eee;
   margin: 0;
   width: 50%;
+}
+
+#breadcrumb-reviews {
+  padding: 10px 40px 16px;
+  list-style: none;
+  background-color: #eee;
+  margin: 0;
+  width: 100%;
 }
 
 /* Display list items side by side */
@@ -273,11 +286,14 @@ nav h1 a {
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
   width: 50%;
+  margin: auto;
 }
 #restaurant-container-reviews {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
+  width: 50%;
+  margin: 0 auto;
 }
 #reviews-container {
   padding: 30px 40px 80px;

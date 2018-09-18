@@ -132,24 +132,6 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
   DBHelper.fetchRestaurantReviewsById(restaurant.id, fillReviewsHTML);
 }
 
-
-/**
- * function for fav button toggle
- */
-const favToggle = (id, status) => {
-  const fav = document.getElementById("fav-button-" + id);
-  
-  self.restaurant["is_favorite"] = status;
-  console.log("favToggle status: ", status);
-  console.log("favToggle id: ", id);
-  //turns click back on after processing has happened to prevent overclicking
-  fav.onclick = e => favToggle(self.restaurant.id, !self.restaurant["is_favorite"]);
-
-  DBHelper.favToggle(id, status);
-
-};
-
-
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
