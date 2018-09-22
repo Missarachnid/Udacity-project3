@@ -8,6 +8,8 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
+  //This will run the function to send the server the pending requests on reload
+   DBHelper.nextItem();
 });
 
 /**
@@ -111,12 +113,9 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
   
 
   //favorite icon
-  console.log("Restaurant Favorite Status: ", restaurant["is_favorite"]);
   const isFav = (restaurant["is_favorite"] && restaurant["is_favorite"].toString() === "true") ? true : false;
   const fav = document.getElementsByClassName("favRest")[0];
-  console.log("fav: ", fav);
   fav.id = "fav-button-" + restaurant.id;
-  console.log("fav id: ", fav.id);
   fav.style.background = isFav ? `url('../img/star_filled.svg') no-repeat` : `url('../img/star_empty.svg') no-repeat`;
   
   fav.onclick = e => favToggle(restaurant.id, !isFav);
@@ -172,6 +171,7 @@ var fillReviewsHTML = (error, reviews) => {
   reviewLink.href = `/reviews.html?id=${self.restaurant.id}`;
   reviewLink.innerHTML = "Add Your Review";
   reviewLink.className = "reviewLink";
+  reviewLink.setAttribute("aria-label", 'Link to add a review form');
   container.appendChild(reviewLink)
 
   if (!reviews) {
@@ -223,6 +223,17 @@ var createReviewHTML = (review) => {
   li.appendChild(comments);
 
   return li;
+}
+
+/**
+ * Fav Toggle
+ */
+const favToggle = (id, status) => {
+  const fav = document.getElementById("fav-button-" + id);
+  self.restaurant["is_favorite"] = status;
+  //send function the opposite of the current status to update the change
+  fav.onclick = e => favToggle(restaurant.id, !self.restaurant["is_favorite"]);
+  DBHelper.favToggle(id, status);
 }
 
 /**

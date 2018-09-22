@@ -5,6 +5,7 @@ let restaurant;
 
 
 document.addEventListener('DOMContentLoaded', (event) => {  
+  //fetch("http://localhost:1337/reviews/70", {method: "DELETE"})
   fetchRestaurantFromURL((error, restaurant) => {
     if(error) {
       console.log("Error retrieving restaurant Data");
@@ -12,7 +13,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       fillBreadcrumb();
     }
   });
-  //DBHelper.
+
+  //This will run the function to send the server the pending requests on reload
+  DBHelper.nextItem();
 });
 
 /**
@@ -86,6 +89,9 @@ var fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+
+  const save = document.getElementById("review-save");
+  save.onclick = e => addReview();
 }
 
 /**
@@ -122,10 +128,30 @@ var getParameterByName = (name, url) => {
 /**
  * Ensures that space key will work for enter on keyboard navigation through site
  */
-var ensureClick = (e) => {
+const ensureClick = (e) => {
   e.preventDefault();
   let code = event.charCode || event.keyCode;
     if((code === 32)|| (code === 13)){
       e.target.click();
   }
+}
+
+const addReview = () => {
+  const name = document.getElementById('review-name').value;
+  const rating = document.getElementById('review-rating').value;
+  const comment = document.getElementById('review-comment').value;
+  
+  DBHelper.addReview(self.restaurant.id, name, rating, comment, (error, review) => {
+    if(error) {
+      console.log("review.js error saving review : ", error);
+    }
+    
+    //turn back on ability to add a comment after all the processing is over
+    const saveButton = document.getElementById('review-save');
+    saveButton.onclick = e => addReview();
+
+    //redirect back to restaurant page after adding a review
+    window.location.href = "/restaurant.html?id=" + self.restaurant.id;
+  });
+  
 }

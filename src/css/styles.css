@@ -257,10 +257,10 @@ nav h1 a {
   font-size: 20pt;
   font-weight: 700;
   letter-spacing: 0;
-  margin: 15px 0 30px;
+  margin: 15px 0;
   text-transform: uppercase;
   line-height: 1.1;
-  display: inline;
+  text-align: center;
 }
 #restaurant-img {
 	width: 100%;
@@ -286,7 +286,6 @@ nav h1 a {
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
   width: 50%;
-  margin: auto;
 }
 #restaurant-container-reviews {
   border-bottom: 1px solid #d9d9d9;

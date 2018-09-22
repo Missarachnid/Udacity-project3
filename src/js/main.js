@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCuisines();
   setListeners();
   setIntersectionObservers();
+  //This will run the function to send the server the pending requests on reload
+  DBHelper.nextItem();
 });
 
 /**
@@ -278,6 +280,7 @@ var createRestaurantHTML = (restaurant) => {
   const fav = document.createElement('button');
   fav.className = "favMain";
   fav.id = "fav-button-" + restaurant.id;
+  fav.setAttribute("aria-label", "favorite button");
   fav.style.background = isFav ? `url('../img/star_filled.svg') no-repeat` : `url('../img/star_empty.svg') no-repeat`;
   
   fav.onclick = e => favToggle(restaurant.id, !isFav);

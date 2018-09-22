@@ -53,7 +53,7 @@
                 <label>
                   <span class="review-label">Rating</span>
                   <select id="review-rating">
-                    <option value="1">1</option>
+                    <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -63,13 +63,13 @@
               </div>
 
               <div class="review-div">
-                <label>
+                <label aria-label="enter comment">
                   <span class="review-label">Comments</span>
                   <textarea id="review-comment" rows="4" cols="30"></textarea>
                 </label>
               </div>
 
-              <button id="review-save" onclick="reviewSave()">Add Review</button>
+              <button id="review-save">Add Review</button>
             </div>
           </section>
         <!-- End restaurant -->

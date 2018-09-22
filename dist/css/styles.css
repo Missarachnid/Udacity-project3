@@ -23,9 +23,9 @@ nav h1{margin:auto}nav h1 a{color:#fff;font-size:1.6rem;font-weight:200;letter-s
 #restaurants-list li a:hover,#restaurants-list li a:focus{box-shadow:0 0 2px 4px rgba(0,0,0,0.4);border-bottom:0;color:black;background-color:#ffac4d}
 .inside header{position:fixed;top:0;width:100%;z-index:1000}.inside #map-container{background:blue none repeat scroll 0 0;height:87%;position:fixed;right:0;top:80px;width:50%}
 .inside #map{background-color:#ccc;height:100%;width:100%}.inside #footer{bottom:0;position:absolute;width:50%}
-#restaurant-name{color:#cc6d00;font-family:Arial,sans-serif;font-size:20pt;font-weight:700;letter-spacing:0;margin:15px 0 30px;text-transform:uppercase;line-height:1.1;display:inline}
+#restaurant-name{color:#cc6d00;font-family:Arial,sans-serif;font-size:20pt;font-weight:700;letter-spacing:0;margin:15px 0;text-transform:uppercase;line-height:1.1;text-align:center}
 #restaurant-img{width:100%}#restaurant-address{font-size:12pt;margin:10px 0}#restaurant-cuisine{background-color:#333;color:#ddd;font-size:12pt;font-weight:300;letter-spacing:10px;margin:0 0 20px;padding:2px 0;text-align:center;text-transform:uppercase;width:100%}
-#restaurant-container,#reviews-container{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px;width:50%;margin:auto}
+#restaurant-container,#reviews-container{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px;width:50%}
 #restaurant-container-reviews{border-bottom:1px solid #d9d9d9;border-top:1px solid #fff;padding:140px 40px 30px;width:50%;margin:0 auto}
 #reviews-container{padding:30px 40px 80px}#reviews-container h3{color:#cc6d00;font-size:24pt;font-weight:700;letter-spacing:-1px;padding-bottom:1pt}
 #reviews-list{margin:0;padding:0}#reviews-list li{background-color:#fff;border:2px solid #f3f3f3;display:block;list-style-type:none;margin:10px auto;border-radius:15px 0 15px 0;overflow:hidden;position:relative;width:100%}
